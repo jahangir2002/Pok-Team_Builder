@@ -1,7 +1,3 @@
-Absolutely, Shaikh! Here's your project documentation rewritten in polished English for your GitHub README, with a clear structure, engaging tone, and emoji flair to make it feel like *you* wrote it:
-
----
-
 # ⚡ PokéTeam Builder — A Mini Pokémon Team Manager
 
 ### 🧠 Concept  

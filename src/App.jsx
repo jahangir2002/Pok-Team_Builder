@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
-    <div className='font-extrabold text-blue-600 text-3xl lg:text-5xl lg:text-green-600 md:text-4xl md:text-red-600 text-center p-4'>PokéTeam Builder</div>
-  )
-}
+    <>
+      <div className="w-full h-dvh bg-blue-200">
+        <Navbar />
+        <div className="font-extrabold text-5xl text-center py-4 ">
+          PokéTeam Builder
+        </div>
+        
+      </div>
+    </>
+  );
+};
 
-export default App
+export default App;

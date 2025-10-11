@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import RotatingText from "./components/RotatingText";
+import Pokemon from "./Pokemon";
 
 const App = () => {
   return (
@@ -22,6 +23,8 @@ const App = () => {
             rotationInterval={2000}
           />
         </div>
+
+        <Pokemon />
       </div>
     </>
   );

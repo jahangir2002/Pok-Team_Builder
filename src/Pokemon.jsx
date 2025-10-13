@@ -60,7 +60,7 @@ const Pokemon = () => {
     <>
       <section className="max-w-[1400px] m-auto">
         <div>
-          <ul className="cards">
+          <ul className="cards px-5 md:px-0 grid md:grid-cols-3 gap-5">
             {poke.map((currentpokemon) => {
               return (
                 <SpotlightCard

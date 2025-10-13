@@ -64,7 +64,7 @@ const Pokemon = () => {
             {poke.map((currentpokemon) => {
               return (
                 <SpotlightCard
-                  className="custom-spotlight-card"
+                  className="custom-spotlight-card transition-transform duration-300 hover:scale-105 cursor-pointer"
                   spotlightColor="rgba(0, 229, 255, 0.2)"
                 >
                   <PokemonCards

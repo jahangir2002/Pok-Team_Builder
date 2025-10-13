@@ -39,7 +39,7 @@ const Pokemon = () => {
 
   useEffect(() => {
     fetchpokemon();
-  });
+  }, []); // Empty dependency array means this runs only once on mount
 
   if (loading) {
     return (

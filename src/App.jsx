@@ -6,7 +6,7 @@ import Pokemon from "./Pokemon";
 const App = () => {
   return (
     <>
-      <div className="w-full h-dvh bg-blue-200">
+      <div className="w-full h-full pb-5 bg-blue-200">
         <Navbar />
         <div className="font-extrabold text-black text-5xl text-center py-5 leading-[1.5] flex flex-col justify-center md:flex-row">
           PokéTeam{" "}

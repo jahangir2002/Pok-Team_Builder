@@ -1,90 +1,84 @@
-import React, { useEffect, useState } from 'react'
-import { PokemonCards } from './PokemonCards';
+import React, { useEffect, useState } from "react";
+import { PokemonCards } from "./PokemonCards";
+import SpotlightCard from "./components/SpotlightCard";
 
 const Pokemon = () => {
+  const [poke, setPoke] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    const [poke, setPoke] = useState([]);
-    const [loading,setLoading] = useState(true);
-    const [error,setError] = useState(null);
+  const API = "https://pokeapi.co/api/v2/pokemon/?limit=24";
 
-    const API = "https://pokeapi.co/api/v2/pokemon/?limit=24";
+  const fetchpokemon = async () => {
+    try {
+      const res = await fetch(API);
+      const data = await res.json();
+      // console.log(data);
 
-    const fetchpokemon =  async()=> {
-        try {
-            const res = await fetch(API);
-            const data = await res.json();
-            // console.log(data);
+      const detailpokemon = data.results.map(async (currentpokemon) => {
+        // console.log(currentpokemon.url)
 
-            const detailpokemon = data.results.map(async(currentpokemon)=> {
-                // console.log(currentpokemon.url)
+        const currentres = await fetch(currentpokemon.url);
+        const currentdata = await currentres.json();
+        return currentdata;
+      });
 
-                const currentres = await fetch(currentpokemon.url)
-                const currentdata = await currentres.json();
-                return currentdata;
-            });
+      // console.log(detailpokemon);
 
-            // console.log(detailpokemon);
+      const finalpoklemondata = await Promise.all(detailpokemon);
+      console.log(finalpoklemondata);
 
-            const finalpoklemondata = await Promise.all(detailpokemon);
-            console.log(finalpoklemondata);
-
-            setPoke(finalpoklemondata);
-            setLoading(false)
-
-
-
-        } catch (error) {
-            console.log(error);
-            setLoading(false);
-            setError(error);
-            
-        }
+      setPoke(finalpoklemondata);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      setError(error);
     }
+  };
 
+  useEffect(() => {
+    fetchpokemon();
+  });
 
-
-    useEffect(() => {
-        fetchpokemon();
-        
-    })
-
-
-    if(loading){
-        return (
-            <div>
-                <h1>Loading...</h1>
-            </div>
-        )
-    }
-    if(error){
-        return (
-            <div>
-                <h1>{error.message}</h1>
-            </div>
-        )
-    }
+  if (loading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div>
+        <h1>{error.message}</h1>
+      </div>
+    );
+  }
 
   return (
-
     <>
-    <section className='max-w-[1400px] m-auto'>
+      <section className="max-w-[1400px] m-auto">
         <div>
-            <ul className='cards'>
-                {
-                    poke.map((currentpokemon)=> {
-                        return (
-                            <PokemonCards key={currentpokemon.id} pokemonData={currentpokemon} />
-                        )
-
-                    })
-                }
-
-            </ul>
+          <ul className="cards">
+            {poke.map((currentpokemon) => {
+              return (
+                <SpotlightCard
+                  className="custom-spotlight-card"
+                  spotlightColor="rgba(0, 229, 255, 0.2)"
+                >
+                  <PokemonCards
+                    key={currentpokemon.id}
+                    pokemonData={currentpokemon}
+                  />
+                </SpotlightCard>
+              );
+            })}
+          </ul>
         </div>
-    </section>
+      </section>
     </>
+  );
+};
 
-  )
-}
-
-export default Pokemon
+export default Pokemon;

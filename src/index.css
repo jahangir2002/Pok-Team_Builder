@@ -2,12 +2,17 @@
 @plugin "daisyui";
 
 .input {
-    background-color:rgba(255, 255, 255, 0.300);
-    width: 40vh;
-    font-size: 16px;
-    font-weight: 700;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 40vh;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .logo {
-    
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
 }

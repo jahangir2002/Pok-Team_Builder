@@ -65,7 +65,7 @@ const Pokemon = () => {
               return (
                 <SpotlightCard
                   className="custom-spotlight-card transition-transform duration-300 hover:scale-105 cursor-pointer"
-                  spotlightColor="rgba(0, 229, 255, 0.2)"
+                  spotlightColor="rgba(255, 255, 255, 0.2)"
                 >
                   <PokemonCards
                     key={currentpokemon.id}

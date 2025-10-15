@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import RotatingText from "./components/RotatingText";
 import Pokemon from "./Pokemon";
 
 const App = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
   return (
     <>
       <div className="w-full h-full pb-5 bg-blue-200">
-        <Navbar />
+        <Navbar onSearch={handleSearch} />
         <div className="font-extrabold text-black text-5xl text-center py-5 leading-[1.5] flex flex-col justify-center md:flex-row">
           PokéTeam{" "}
           <RotatingText
@@ -24,7 +30,7 @@ const App = () => {
           />
         </div>
 
-        <Pokemon />
+        <Pokemon searchTerm={searchTerm} />
       </div>
     </>
   );

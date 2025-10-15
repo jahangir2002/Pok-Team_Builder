@@ -23,9 +23,9 @@ const getTypeColor = (typeName) => {
   return typeColors[typeName] || 'bg-gray-500';
 };
 
-export const PokemonCards = ({ pokemonData }) => {
+export const PokemonCards = ({ pokemonData, theme }) => {
   return (
-    <li className="flex justify-center items-center flex-col ">
+    <li className="flex justify-center items-center flex-col">
       <figure className="w-48 h-48">
         <img
           className="w-full h-full object-fit-cover"
@@ -33,7 +33,7 @@ export const PokemonCards = ({ pokemonData }) => {
           alt={pokemonData.name}
         />
       </figure>
-      <h1 className="text-2xl font-black py-4">{pokemonData.name}</h1>
+      <h1 className={`text-2xl font-black py-4 ${theme === "dark" ? "text-white" : "text-black"}`}>{pokemonData.name}</h1>
 
       <div className="flex flex-wrap gap-2 justify-center">
         {pokemonData.types.map((curtype, index) => (
@@ -46,7 +46,7 @@ export const PokemonCards = ({ pokemonData }) => {
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-3 text-center pt-4 font-semibold">
+      <div className={`grid grid-cols-2 gap-3 text-center pt-4 font-semibold ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
         <p>Height : {pokemonData.height}</p>
         <p>Weight : {pokemonData.weight}</p>
         <p>

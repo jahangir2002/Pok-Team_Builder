@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { PokemonCards } from "./PokemonCards";
 import SpotlightCard from "./components/SpotlightCard";
 
-const Pokemon = ({ searchTerm }) => {
+const Pokemon = ({ searchTerm, theme }) => {
   const [poke, setPoke] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -70,8 +70,8 @@ const Pokemon = ({ searchTerm }) => {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
         <div className="text-center">
-          <div className="loading loading-spinner loading-lg text-red-600"></div>
-          <h1 className="text-xl font-semibold mt-4">Loading Pokémon...</h1>
+          <div className={`loading loading-spinner loading-lg ${theme === "dark" ? "text-cyan-500" : "text-red-600"}`}></div>
+          <h1 className={`text-xl font-semibold mt-4 ${theme === "dark" ? "text-white" : "text-black"}`}>Loading Pokémon...</h1>
         </div>
       </div>
     );
@@ -81,7 +81,7 @@ const Pokemon = ({ searchTerm }) => {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
         <div className="text-center">
-          <h1 className="text-xl font-semibold text-red-600">Error: {error.message}</h1>
+          <h1 className={`text-xl font-semibold ${theme === "dark" ? "text-red-400" : "text-red-600"}`}>Error: {error.message}</h1>
         </div>
       </div>
     );
@@ -92,7 +92,7 @@ const Pokemon = ({ searchTerm }) => {
       <section className="max-w-[1400px] m-auto">
         {searchTerm && (
           <div className="px-5 md:px-0 mb-4">
-            <p className="text-lg text-gray-700">
+            <p className={`text-lg ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
               {filteredPokemon.length} Pokémon found for "{searchTerm}"
             </p>
           </div>
@@ -101,8 +101,8 @@ const Pokemon = ({ searchTerm }) => {
         {filteredPokemon.length === 0 && searchTerm ? (
           <div className="flex justify-center items-center min-h-[400px]">
             <div className="text-center">
-              <h2 className="text-xl font-semibold text-gray-600 mb-2">No Pokémon found</h2>
-              <p className="text-gray-500">Try searching for a different name, type, or ability</p>
+              <h2 className={`text-xl font-semibold mb-2 ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>No Pokémon found</h2>
+              <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>Try searching for a different name, type, or ability</p>
             </div>
           </div>
         ) : (
@@ -113,10 +113,12 @@ const Pokemon = ({ searchTerm }) => {
                   <SpotlightCard
                     key={currentpokemon.id}
                     className="custom-spotlight-card transition-transform duration-300 hover:scale-105 cursor-pointer"
-                    spotlightColor="rgba(255, 255, 255, 0.2)"
+                    spotlightColor={theme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)"}
+                    theme={theme}
                   >
                     <PokemonCards
                       pokemonData={currentpokemon}
+                      theme={theme}
                     />
                   </SpotlightCard>
                 );

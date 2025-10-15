@@ -1,24 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import RotatingText from "./components/RotatingText";
 import Pokemon from "./Pokemon";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [theme, setTheme] = useState("light");
 
   const handleSearch = (term) => {
     setSearchTerm(term);
   };
 
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
   return (
     <>
-      <div className="w-full h-full pb-5 bg-blue-200">
-        <Navbar onSearch={handleSearch} />
-        <div className="font-extrabold text-black text-5xl text-center py-5 leading-[1.5] flex flex-col justify-center md:flex-row">
+      <div className={`w-full h-full pb-5 ${theme === "dark" ? "bg-gray-900" : "bg-blue-200"}`}>
+        <Navbar onSearch={handleSearch} theme={theme} toggleTheme={toggleTheme} />
+        <div className={`font-extrabold text-5xl text-center py-5 leading-[1.5] flex flex-col justify-center md:flex-row ${theme === "dark" ? "text-white" : "text-black"}`}>
           PokéTeam{" "}
           <RotatingText
             texts={["Builder", "Cards", "Is", "Cool!"]}
-            mainClassName="bg-red-600 px-2 rounded-md text-stone-50 px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+            mainClassName={`px-2 rounded-md px-2 sm:px-2 md:px-3 overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg ${theme === "dark" ? "bg-cyan-500 text-white" : "bg-cyan-300 text-black"}`}
             staggerFrom={"last"}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
@@ -30,7 +46,7 @@ const App = () => {
           />
         </div>
 
-        <Pokemon searchTerm={searchTerm} />
+        <Pokemon searchTerm={searchTerm} theme={theme} />
       </div>
     </>
   );

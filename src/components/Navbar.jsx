@@ -29,8 +29,8 @@ const Navbar = ({ onSearch, theme, toggleTheme }) => {
                 type="text"
                 value={searchValue}
                 onChange={handleInputChange}
-                placeholder="Search Pokemon..."
-                className={`input input-bordered w-32 md:w-48 pr-8 ${theme === "dark" ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "bg-white border-gray-300 text-black placeholder-gray-500"}`}
+                placeholder="Search by name, type, or ability..."
+                className={`input input-bordered w-80  pr-8 ${theme === "dark" ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400" : "bg-white border-gray-300 text-black placeholder-gray-500"}`}
               />
               {searchValue && (
                 <button

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import RotatingText from "./components/RotatingText";
 import Pokemon from "./Pokemon";
+import Footer from "./Footer";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,6 +48,7 @@ const App = () => {
         </div>
 
         <Pokemon searchTerm={searchTerm} theme={theme} />
+        <Footer theme={theme}/>
       </div>
     </>
   );

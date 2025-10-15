@@ -12,8 +12,18 @@ const Pokemon = ({ searchTerm, theme }) => {
   const [totalPokemon, setTotalPokemon] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
+  // Search-specific state
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchUrls, setSearchUrls] = useState([]); // URLs of pokemon that match search
+  const [searchDisplayed, setSearchDisplayed] = useState([]); // detailed data for current search page
+  const [searchPage, setSearchPage] = useState(1);
+  const [searchTotalPages, setSearchTotalPages] = useState(0);
+
   const POKEMON_PER_PAGE = 20;
   const API_BASE = "https://pokeapi.co/api/v2/pokemon";
+  const TYPE_API = "https://pokeapi.co/api/v2/type";
+  const ABILITY_API = "https://pokeapi.co/api/v2/ability";
 
   const fetchAllPokemon = async () => {
     try {
@@ -79,30 +89,99 @@ const Pokemon = ({ searchTerm, theme }) => {
     fetchAllPokemon();
   }, []); // Empty dependency array means this runs only once on mount
 
-  // Filter Pokemon based on search term
-  const filteredPokemon = useMemo(() => {
-    if (!searchTerm.trim()) {
-      return displayedPokemon;
-    }
-
-    const searchLower = searchTerm.toLowerCase();
-    return displayedPokemon.filter((pokemon) => {
-      // Search by name
-      const nameMatch = pokemon.name.toLowerCase().includes(searchLower);
-      
-      // Search by type
-      const typeMatch = pokemon.types.some(type => 
-        type.type.name.toLowerCase().includes(searchLower)
-      );
-      
-      // Search by abilities
-      const abilityMatch = pokemon.abilities.some(ability => 
-        ability.ability.name.toLowerCase().includes(searchLower)
-      );
-
-      return nameMatch || typeMatch || abilityMatch;
+  // Fetch detailed data for a list of pokemon resource objects { name, url }
+  const fetchDetailsForList = async (list) => {
+    const detailPromises = list.map(async (p) => {
+      const res = await fetch(p.url);
+      const data = await res.json();
+      return data;
     });
-  }, [displayedPokemon, searchTerm]);
+    return await Promise.all(detailPromises);
+  };
+
+  // SEARCH: query API across name/type/ability; paginate results client-side with POKEMON_PER_PAGE
+  const performApiSearch = useMemo(() => {
+    return async (term, page) => {
+      const q = term.trim().toLowerCase();
+      if (!q) return { urls: [], pageData: [] };
+
+      setSearchLoading(true);
+      try {
+        // Name matches from allPokemon list (preloaded URLs)
+        const nameMatches = allPokemon.filter(p => p.name.toLowerCase().includes(q));
+
+        // Type matches: GET /type/{q} if exists
+        let typeMatches = [];
+        try {
+          const typeRes = await fetch(`${TYPE_API}/${q}`);
+          if (typeRes.ok) {
+            const typeData = await typeRes.json();
+            typeMatches = typeData.pokemon.map((wrapper) => wrapper.pokemon);
+          }
+        } catch (_) {}
+
+        // Ability matches: GET /ability/{q} if exists
+        let abilityMatches = [];
+        try {
+          const abilityRes = await fetch(`${ABILITY_API}/${q}`);
+          if (abilityRes.ok) {
+            const abilityData = await abilityRes.json();
+            abilityMatches = abilityData.pokemon.map((wrapper) => wrapper.pokemon);
+          }
+        } catch (_) {}
+
+        // Merge urls unique by name
+        const byName = new Map();
+        [...nameMatches, ...typeMatches, ...abilityMatches].forEach((p) => {
+          byName.set(p.name, p);
+        });
+        const mergedList = Array.from(byName.values());
+
+        // Paginate
+        const start = (page - 1) * POKEMON_PER_PAGE;
+        const pageSlice = mergedList.slice(start, start + POKEMON_PER_PAGE);
+        const pageData = await fetchDetailsForList(pageSlice);
+
+        return { urls: mergedList, pageData };
+      } finally {
+        setSearchLoading(false);
+      }
+    };
+  }, [allPokemon]);
+
+  // Manage search lifecycle
+  useEffect(() => {
+    const run = async () => {
+      const term = searchTerm.trim();
+      if (!term) {
+        setIsSearching(false);
+        setSearchUrls([]);
+        setSearchDisplayed([]);
+        setSearchPage(1);
+        return;
+      }
+
+      setIsSearching(true);
+      setSearchPage(1);
+      const { urls, pageData } = await performApiSearch(term, 1);
+      setSearchUrls(urls);
+      setSearchDisplayed(pageData);
+      setSearchTotalPages(Math.ceil(urls.length / POKEMON_PER_PAGE));
+    };
+    run();
+  }, [searchTerm, performApiSearch]);
+
+  const goToSearchPage = async (page) => {
+    if (page < 1) return;
+    if (page > searchTotalPages) return;
+    const term = searchTerm.trim();
+    if (!term) return;
+    setSearchPage(page);
+    const start = (page - 1) * POKEMON_PER_PAGE;
+    const slice = searchUrls.slice(start, start + POKEMON_PER_PAGE);
+    const pageData = await fetchDetailsForList(slice);
+    setSearchDisplayed(pageData);
+  };
 
   if (loading) {
     return (
@@ -128,15 +207,15 @@ const Pokemon = ({ searchTerm, theme }) => {
   return (
     <>
       <section className="max-w-[1400px] m-auto">
-        {searchTerm && (
+        {isSearching && (
           <div className="px-5 md:px-0 mb-4">
             <p className={`text-lg ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
-              {filteredPokemon.length} Pokémon found for "{searchTerm}"
+              {searchUrls.length} Pokémon found for "{searchTerm}"
             </p>
           </div>
         )}
 
-        {!searchTerm && (
+        {!isSearching && (
           <div className="px-5 md:px-0 mb-4">
             <p className={`text-lg ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
               Showing {displayedPokemon.length} of {totalPokemon} Pokémon
@@ -144,7 +223,7 @@ const Pokemon = ({ searchTerm, theme }) => {
           </div>
         )}
         
-        {filteredPokemon.length === 0 && searchTerm ? (
+        {isSearching && searchUrls.length === 0 ? (
           <div className="flex justify-center items-center min-h-[400px]">
             <div className="text-center">
               <h2 className={`text-xl font-semibold mb-2 ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>No Pokémon found</h2>
@@ -154,7 +233,7 @@ const Pokemon = ({ searchTerm, theme }) => {
         ) : (
           <div>
             <ul className="cards px-5 md:px-0 grid md:grid-cols-3 gap-5">
-              {filteredPokemon.map((currentpokemon) => {
+              {(isSearching ? searchDisplayed : displayedPokemon).map((currentpokemon) => {
                 return (
                   <SpotlightCard
                     key={currentpokemon.id}
@@ -171,8 +250,8 @@ const Pokemon = ({ searchTerm, theme }) => {
               })}
             </ul>
 
-            {/* DaisyUI Pagination - Only show when not searching */}
-            {!searchTerm && totalPages > 1 && (
+            {/* DaisyUI Pagination - normal mode */}
+            {!isSearching && totalPages > 1 && (
               <div className="flex justify-center items-center mt-8 pb-8">
                 <div className={`join ${theme === "dark" ? "join-ghost" : ""}`}>
                   {/* Previous Button */}
@@ -245,6 +324,72 @@ const Pokemon = ({ searchTerm, theme }) => {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* DaisyUI Pagination - search mode */}
+            {isSearching && searchTotalPages > 1 && (
+              <div className="flex justify-center items-center mt-8 pb-8">
+                <div className={`join ${theme === "dark" ? "join-ghost" : ""}`}>
+                  <button
+                    onClick={() => goToSearchPage(searchPage - 1)}
+                    disabled={searchPage === 1 || searchLoading}
+                    className={`join-item btn ${theme === "dark" ? "btn-ghost" : "btn-outline"}`}
+                  >
+                    {searchLoading && searchPage > 1 ? (
+                      <span className="loading loading-spinner loading-sm"></span>
+                    ) : (
+                      <>Previous</>
+                    )}
+                  </button>
+
+                  {Array.from({ length: Math.min(5, searchTotalPages) }, (_, i) => {
+                    let pageNum;
+                    if (searchTotalPages <= 5) {
+                      pageNum = i + 1;
+                    } else if (searchPage <= 3) {
+                      pageNum = i + 1;
+                    } else if (searchPage >= searchTotalPages - 2) {
+                      pageNum = searchTotalPages - 4 + i;
+                    } else {
+                      pageNum = searchPage - 2 + i;
+                    }
+                    return (
+                      <button
+                        key={pageNum}
+                        onClick={() => goToSearchPage(pageNum)}
+                        disabled={searchLoading}
+                        className={`join-item btn ${
+                          searchPage === pageNum
+                            ? theme === "dark" 
+                              ? "btn-primary" 
+                              : "btn-secondary"
+                            : theme === "dark" 
+                              ? "btn-ghost" 
+                              : "btn-outline"
+                        }`}
+                      >
+                        {searchLoading && searchPage === pageNum ? (
+                          <span className="loading loading-spinner loading-sm"></span>
+                        ) : (
+                          pageNum
+                        )}
+                      </button>
+                    );
+                  })}
+
+                  <button
+                    onClick={() => goToSearchPage(searchPage + 1)}
+                    disabled={searchPage === searchTotalPages || searchLoading}
+                    className={`join-item btn ${theme === "dark" ? "btn-ghost" : "btn-outline"}`}
+                  >
+                    {searchLoading && searchPage < searchTotalPages ? (
+                      <span className="loading loading-spinner loading-sm"></span>
+                    ) : (
+                      <>Next</>
                     )}
                   </button>
                 </div>

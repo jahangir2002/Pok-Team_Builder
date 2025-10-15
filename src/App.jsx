@@ -34,7 +34,7 @@ const App = () => {
           PokéTeam{" "}
           <RotatingText
             texts={["Builder", "Cards", "Is", "Cool!"]}
-            mainClassName={`px-2 rounded-md px-2 sm:px-2 md:px-3 overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg ${theme === "dark" ? "bg-cyan-500 text-white" : "bg-cyan-300 text-black"}`}
+            mainClassName={`px-2 rounded-md px-2 sm:px-2 md:px-3 overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg ${theme === "dark" ? "bg-cyan-500 text-white" : "bg-red-500 text-white"}`}
             staggerFrom={"last"}
             initial={{ y: "100%" }}
             animate={{ y: 0 }}

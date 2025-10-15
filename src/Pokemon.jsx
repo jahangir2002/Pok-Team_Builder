@@ -9,10 +9,10 @@ const Pokemon = ({ searchTerm, theme }) => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [hasMoreData, setHasMoreData] = useState(true);
   const [totalPokemon, setTotalPokemon] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
-  const POKEMON_PER_PAGE = 50;
+  const POKEMON_PER_PAGE = 20;
   const API_BASE = "https://pokeapi.co/api/v2/pokemon";
 
   const fetchAllPokemon = async () => {
@@ -23,12 +23,13 @@ const Pokemon = ({ searchTerm, theme }) => {
       const countData = await countRes.json();
       const totalCount = countData.count;
       setTotalPokemon(totalCount);
+      setTotalPages(Math.ceil(totalCount / POKEMON_PER_PAGE));
 
       // Fetch all Pokemon URLs (without details first)
       const allRes = await fetch(`${API_BASE}?limit=${totalCount}`);
       const allData = await allRes.json();
 
-      // Fetch details for first 50 Pokemon
+      // Fetch details for first page Pokemon
       const firstBatch = allData.results.slice(0, POKEMON_PER_PAGE);
       const detailPokemon = firstBatch.map(async (currentpokemon) => {
         const currentres = await fetch(currentpokemon.url);
@@ -48,42 +49,30 @@ const Pokemon = ({ searchTerm, theme }) => {
     }
   };
 
-  const fetchMorePokemon = async () => {
-    if (loadingMore || !hasMoreData) return;
+  const fetchPagePokemon = async (pageNumber) => {
+    if (loadingMore || pageNumber === currentPage) return;
 
     try {
       setLoadingMore(true);
-      const startIndex = currentPage * POKEMON_PER_PAGE;
+      const startIndex = (pageNumber - 1) * POKEMON_PER_PAGE;
       const endIndex = Math.min(startIndex + POKEMON_PER_PAGE, allPokemon.length);
       
-      if (startIndex >= allPokemon.length) {
-        setHasMoreData(false);
-        setLoadingMore(false);
-        return;
-      }
-
-      const nextBatch = allPokemon.slice(startIndex, endIndex);
-      const detailPokemon = nextBatch.map(async (currentpokemon) => {
+      const pageBatch = allPokemon.slice(startIndex, endIndex);
+      const detailPokemon = pageBatch.map(async (currentpokemon) => {
         const currentres = await fetch(currentpokemon.url);
         const currentdata = await currentres.json();
         return currentdata;
       });
 
       const newPokemonData = await Promise.all(detailPokemon);
-      setDisplayedPokemon(prev => [...prev, ...newPokemonData]);
-      setCurrentPage(prev => prev + 1);
+      setDisplayedPokemon(newPokemonData);
+      setCurrentPage(pageNumber);
       setLoadingMore(false);
     } catch (error) {
       console.log(error);
       setLoadingMore(false);
       setError(error);
     }
-  };
-
-  const showLessPokemon = () => {
-    setDisplayedPokemon(prev => prev.slice(0, POKEMON_PER_PAGE));
-    setCurrentPage(1);
-    setHasMoreData(true);
   };
 
   useEffect(() => {
@@ -182,42 +171,83 @@ const Pokemon = ({ searchTerm, theme }) => {
               })}
             </ul>
 
-            {/* Pagination Buttons - Only show when not searching */}
-            {!searchTerm && (
-              <div className="flex justify-center items-center gap-4 mt-8 pb-8">
-                {hasMoreData && displayedPokemon.length < totalPokemon && (
+            {/* DaisyUI Pagination - Only show when not searching */}
+            {!searchTerm && totalPages > 1 && (
+              <div className="flex justify-center items-center mt-8 pb-8">
+                <div className={`join ${theme === "dark" ? "join-ghost" : ""}`}>
+                  {/* Previous Button */}
                   <button
-                    onClick={fetchMorePokemon}
-                    disabled={loadingMore}
-                    className={`btn ${theme === "dark" ? "btn-primary" : "btn-secondary"} ${loadingMore ? "loading" : ""}`}
+                    onClick={() => fetchPagePokemon(currentPage - 1)}
+                    disabled={currentPage === 1 || loadingMore}
+                    className={`join-item btn ${theme === "dark" ? "btn-ghost" : "btn-outline"}`}
                   >
-                    {loadingMore ? (
-                      <>
-                        <span className="loading loading-spinner loading-sm"></span>
-                        Loading...
-                      </>
+                    {loadingMore && currentPage > 1 ? (
+                      <span className="loading loading-spinner loading-sm"></span>
                     ) : (
                       <>
-                        Load More Pokémon
-                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Previous
+                      </>
+                    )}
+                  </button>
+
+                  {/* Page Numbers */}
+                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                    let pageNum;
+                    if (totalPages <= 5) {
+                      pageNum = i + 1;
+                    } else if (currentPage <= 3) {
+                      pageNum = i + 1;
+                    } else if (currentPage >= totalPages - 2) {
+                      pageNum = totalPages - 4 + i;
+                    } else {
+                      pageNum = currentPage - 2 + i;
+                    }
+
+                    return (
+                      <button
+                        key={pageNum}
+                        onClick={() => fetchPagePokemon(pageNum)}
+                        disabled={loadingMore}
+                        className={`join-item btn ${
+                          currentPage === pageNum
+                            ? theme === "dark" 
+                              ? "btn-primary" 
+                              : "btn-secondary"
+                            : theme === "dark" 
+                              ? "btn-ghost" 
+                              : "btn-outline"
+                        }`}
+                      >
+                        {loadingMore && currentPage === pageNum ? (
+                          <span className="loading loading-spinner loading-sm"></span>
+                        ) : (
+                          pageNum
+                        )}
+                      </button>
+                    );
+                  })}
+
+                  {/* Next Button */}
+                  <button
+                    onClick={() => fetchPagePokemon(currentPage + 1)}
+                    disabled={currentPage === totalPages || loadingMore}
+                    className={`join-item btn ${theme === "dark" ? "btn-ghost" : "btn-outline"}`}
+                  >
+                    {loadingMore && currentPage < totalPages ? (
+                      <span className="loading loading-spinner loading-sm"></span>
+                    ) : (
+                      <>
+                        Next
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </>
                     )}
                   </button>
-                )}
-
-                {displayedPokemon.length > POKEMON_PER_PAGE && (
-                  <button
-                    onClick={showLessPokemon}
-                    className={`btn ${theme === "dark" ? "btn-outline" : "btn-outline"} btn-sm`}
-                  >
-                    Show Less
-                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-                    </svg>
-                  </button>
-                )}
+                </div>
               </div>
             )}
           </div>

@@ -16,10 +16,10 @@ const Navbar = ({ onSearch, theme, toggleTheme }) => {
 
   return (
     <>
-      <div className={`navbar shadow-sm ${theme === "dark" ? "bg-gray-800" : "bg-red-600"}`}>
-        <div className="w-full max-w-[1400px] m-auto flex flex-col md:flex-row items-center justify-between gap-4 py-4">
+      <div className={`navbar shadow-sm ${theme === "dark" ? "backdrop-blur-[16px] backdrop-saturate-[180%] bg-[#111928]/75 rounded-[12px] border border-[hsla(0,0%,100%,0.125)] opacity-100" : "backdrop-blur-[16px] backdrop-saturate-[180%] bg-white/60 rounded-[12px] border border-[rgba(0,0,0,0.1)] opacity-100 shadow-md"}`}>
+        <div className="w-full max-w-screen-xl md:px-4 m-auto flex flex-col md:flex-row items-center justify-between gap-4 py-4">
           <div className="flex-1 text-center md:text-left">
-            <a className={`logo font-extrabold text-xl ${theme === "dark" ? "text-white" : "text-white"}`}>
+            <a className={`logo font-extrabold text-xl ${theme === "dark" ? "text-white" : "text-black"}`}>
               PokéTeam Builder
             </a>
           </div>

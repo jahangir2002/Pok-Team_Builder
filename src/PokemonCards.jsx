@@ -26,7 +26,7 @@ const getTypeColor = (typeName) => {
 export const PokemonCards = ({ pokemonData, theme }) => {
   return (
     <li className="flex justify-center items-center flex-col">
-      <figure className="w-48 h-48">
+      <figure className="w-40 h-40">
         <img
           className="w-full h-full object-fit-cover"
           src={pokemonData.sprites.other.dream_world.front_default}

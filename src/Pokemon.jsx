@@ -206,7 +206,7 @@ const Pokemon = ({ searchTerm, theme }) => {
 
   return (
     <>
-      <section className="max-w-[1400px] m-auto">
+      <section className="max-w-screen-xl md:px-4 m-auto">
         {isSearching && (
           <div className="px-5 md:px-0 mb-4">
             <p className={`text-lg ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>

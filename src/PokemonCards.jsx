@@ -32,7 +32,7 @@ export const PokemonCards = ({ pokemonData, theme, favoritePokemon, toggleFavori
   return (
     <li className="flex justify-center items-center flex-col">
       <button 
-        className="w-full transition-transform duration-200" 
+        className="w-full transition-transform duration-200 cursor-pointer" 
         onClick={handleFavoriteClick}
         title={isFavorite ? "Remove from favorites" : "Add to favorites"}
       >

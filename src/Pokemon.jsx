@@ -207,6 +207,9 @@ const Pokemon = ({ searchTerm, theme, favoritePokemon, toggleFavorite }) => {
   return (
     <>
       <section className="max-w-screen-xl md:px-4 m-auto">
+        <div className="text-end">
+          <button className={`btn btn-soft ${theme === "dark" ? "btn-info" : "btn-error"}`}>My Favorite Pokémon</button>
+        </div>
         {isSearching && (
           <div className="px-5 md:px-0 mb-4">
             <p className={`text-lg ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>

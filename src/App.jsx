@@ -9,6 +9,7 @@ import LightBackground from "./components/LightBackground";
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [theme, setTheme] = useState("light");
+  const [favoritePokemon, setFavoritePokemon] = useState(new Set());
 
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -20,9 +21,27 @@ const App = () => {
     localStorage.setItem("theme", newTheme);
   };
 
+  const toggleFavorite = (pokemonId) => {
+    setFavoritePokemon(prev => {
+      const newFavorites = new Set(prev);
+      if (newFavorites.has(pokemonId)) {
+        newFavorites.delete(pokemonId);
+      } else {
+        newFavorites.add(pokemonId);
+      }
+      localStorage.setItem("favoritePokemon", JSON.stringify(Array.from(newFavorites)));
+      return newFavorites;
+    });
+  };
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light";
     setTheme(savedTheme);
+    
+    const savedFavorites = localStorage.getItem("favoritePokemon");
+    if (savedFavorites) {
+      setFavoritePokemon(new Set(JSON.parse(savedFavorites)));
+    }
   }, []);
 
   useEffect(() => {
@@ -49,7 +68,12 @@ const App = () => {
               rotationInterval={2000}
             />
           </div>
-          <Pokemon searchTerm={searchTerm} theme={theme} />
+          <Pokemon 
+            searchTerm={searchTerm} 
+            theme={theme} 
+            favoritePokemon={favoritePokemon}
+            toggleFavorite={toggleFavorite}
+          />
           <Footer theme={theme}/>
         </DarkBackground>
       ) : (
@@ -70,7 +94,12 @@ const App = () => {
               rotationInterval={2000}
             />
           </div>
-          <Pokemon searchTerm={searchTerm} theme={theme} />
+          <Pokemon 
+            searchTerm={searchTerm} 
+            theme={theme} 
+            favoritePokemon={favoritePokemon}
+            toggleFavorite={toggleFavorite}
+          />
           <Footer theme={theme}/>
         </LightBackground>
       )}

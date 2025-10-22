@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { PokemonCards } from "./PokemonCards";
 import SpotlightCard from "./components/SpotlightCard";
 
-const Pokemon = ({ searchTerm, theme }) => {
+const Pokemon = ({ searchTerm, theme, favoritePokemon, toggleFavorite }) => {
   const [allPokemon, setAllPokemon] = useState([]);
   const [displayedPokemon, setDisplayedPokemon] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -244,6 +244,8 @@ const Pokemon = ({ searchTerm, theme }) => {
                     <PokemonCards
                       pokemonData={currentpokemon}
                       theme={theme}
+                      favoritePokemon={favoritePokemon}
+                      toggleFavorite={toggleFavorite}
                     />
                   </SpotlightCard>
                 );

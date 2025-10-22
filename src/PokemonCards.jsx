@@ -23,9 +23,34 @@ const getTypeColor = (typeName) => {
   return typeColors[typeName] || 'bg-gray-500';
 };
 
-export const PokemonCards = ({ pokemonData, theme }) => {
+export const PokemonCards = ({ pokemonData, theme, favoritePokemon, toggleFavorite }) => {
+  const isFavorite = favoritePokemon.has(pokemonData.id);
+  
+  const handleFavoriteClick = () => {
+    toggleFavorite(pokemonData.id);
+  };
   return (
     <li className="flex justify-center items-center flex-col">
+      <button 
+        className="favpoki w-full hover:scale-110 transition-transform duration-200" 
+        onClick={handleFavoriteClick}
+        title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+      >
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="24" 
+          height="24" 
+          viewBox="0 0 24 24" 
+          fill={isFavorite ? "#ef4444" : "none"} 
+          stroke={isFavorite ? "#ef4444" : (theme === "dark" ? "#ffffff" : "#000000")} 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        >
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+        </svg>
+      </button>
+      
       <figure className="w-40 h-40">
         <img
           className="w-full h-full object-fit-cover"

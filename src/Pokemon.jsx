@@ -38,6 +38,7 @@ const Pokemon = ({ searchTerm, theme, favoritePokemon, toggleFavorite }) => {
       // Fetch all Pokemon URLs (without details first)
       const allRes = await fetch(`${API_BASE}?limit=${totalCount}`);
       const allData = await allRes.json();
+      // console.log("All Pokemon URLs fetched:", allData.results);
 
       // Fetch details for first page Pokemon
       const firstBatch = allData.results.slice(0, POKEMON_PER_PAGE);

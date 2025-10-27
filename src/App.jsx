@@ -5,8 +5,22 @@ import Pokemon from "./Pokemon";
 import Footer from "./Footer";
 import DarkBackground from "./components/DarkBackground";
 import LightBackground from "./components/LightBackground";
+import MyFavorites from "./MyFavorites";
+import { Routes, Route } from "react-router-dom";
+
+const Home = ({ searchTerm, theme, favoritePokemon, toggleFavorite }) => {
+  return (
+    <Pokemon
+      searchTerm={searchTerm}
+      theme={theme}
+      favoritePokemon={favoritePokemon}
+      toggleFavorite={toggleFavorite}
+    />
+  );
+};
 
 const App = () => {
+
   const [searchTerm, setSearchTerm] = useState("");
   const [theme, setTheme] = useState("light");
   const [favoritePokemon, setFavoritePokemon] = useState(new Set());
@@ -68,12 +82,10 @@ const App = () => {
               rotationInterval={2000}
             />
           </div>
-          <Pokemon 
-            searchTerm={searchTerm} 
-            theme={theme} 
-            favoritePokemon={favoritePokemon}
-            toggleFavorite={toggleFavorite}
-          />
+          <Routes>
+            <Route path="/" element={<Home searchTerm={searchTerm} theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} />} />
+            <Route path="/MyFavorites" element={<MyFavorites />} />
+          </Routes>
           <Footer theme={theme}/>
         </DarkBackground>
       ) : (
@@ -94,12 +106,10 @@ const App = () => {
               rotationInterval={2000}
             />
           </div>
-          <Pokemon 
-            searchTerm={searchTerm} 
-            theme={theme} 
-            favoritePokemon={favoritePokemon}
-            toggleFavorite={toggleFavorite}
-          />
+          <Routes>
+            <Route path="/" element={<Home searchTerm={searchTerm} theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} />} />
+            <Route path="/MyFavorites" element={<MyFavorites />} />
+          </Routes>
           <Footer theme={theme}/>
         </LightBackground>
       )}

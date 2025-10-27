@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { PokemonCards } from "./PokemonCards";
 import SpotlightCard from "./components/SpotlightCard";
+import MyFavorites from "./MyFavorites";
+import { useNavigate } from "react-router-dom";
 
 const Pokemon = ({ searchTerm, theme, favoritePokemon, toggleFavorite }) => {
   const [allPokemon, setAllPokemon] = useState([]);
@@ -19,6 +21,8 @@ const Pokemon = ({ searchTerm, theme, favoritePokemon, toggleFavorite }) => {
   const [searchDisplayed, setSearchDisplayed] = useState([]); // detailed data for current search page
   const [searchPage, setSearchPage] = useState(1);
   const [searchTotalPages, setSearchTotalPages] = useState(0);
+
+  const navigate = useNavigate();
 
   const POKEMON_PER_PAGE = 20;
   const API_BASE = "https://pokeapi.co/api/v2/pokemon";
@@ -209,7 +213,7 @@ const Pokemon = ({ searchTerm, theme, favoritePokemon, toggleFavorite }) => {
     <>
       <section className="max-w-screen-xl md:px-4 m-auto">
         <div className="text-end px-5 pb-2 flex justify-end gap-4">
-          <button className={`btn btn-soft ${theme === "dark" ? "btn-info" : "btn-error"}`}>My Favorite Pokémon</button>
+          <button className={`btn btn-soft ${theme === "dark" ? "btn-info" : "btn-error"}`}onClick={()=> navigate("/MyFavorites")}>My Favorite Pokémon</button>
           <button className={`btn btn-outline ${theme === "dark" ? "btn-info" : "btn-error"}`}>My Team</button>
         </div>
         {isSearching && (

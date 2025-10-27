@@ -25,7 +25,7 @@ const Navbar = ({ onSearch, theme, toggleTheme }) => {
             </a>
             <nav>
               <ul>
-                <li className={`btn btn-soft ${theme === "dark" ? "btn-info" : "btn-error"}`}>
+                <li className={` link no-underline text-md font-semibold ${theme === "dark" ? "link-info" : "link-error"}`}>
                   <Link to="/">Home</Link>
                 </li>
               </ul>

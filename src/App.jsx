@@ -84,7 +84,7 @@ const App = () => {
           </div>
           <Routes>
             <Route path="/" element={<Home searchTerm={searchTerm} theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} />} />
-            <Route path="/MyFavorites" element={<MyFavorites />} />
+            <Route path="/MyFavorites" element={<MyFavorites theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} />} />
           </Routes>
           <Footer theme={theme}/>
         </DarkBackground>
@@ -108,7 +108,7 @@ const App = () => {
           </div>
           <Routes>
             <Route path="/" element={<Home searchTerm={searchTerm} theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} />} />
-            <Route path="/MyFavorites" element={<MyFavorites />} />
+            <Route path="/MyFavorites" element={<MyFavorites theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} />} />
           </Routes>
           <Footer theme={theme}/>
         </LightBackground>

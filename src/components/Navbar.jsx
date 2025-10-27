@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = ({ onSearch, theme, toggleTheme }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -18,11 +19,19 @@ const Navbar = ({ onSearch, theme, toggleTheme }) => {
     <>
       <div className={`navbar shadow-sm ${theme === "dark" ? "backdrop-blur-[16px] backdrop-saturate-[180%] bg-[#111928]/75 rounded-[12px] border border-[hsla(0,0%,100%,0.125)] opacity-100" : "backdrop-blur-[16px] backdrop-saturate-[180%] bg-white/60 rounded-[12px] border border-[rgba(0,0,0,0.1)] opacity-100 shadow-md"}`}>
         <div className="w-full max-w-screen-xl md:px-4 m-auto flex flex-col md:flex-row items-center justify-between gap-4 py-4">
-          <div className="flex-1 text-center md:text-left">
+          <div className="flex gap-10 items-center text-center md:text-left">
             <a className={`logo font-extrabold text-xl ${theme === "dark" ? "text-white" : "text-black"}`}>
               PokéTeam Builder
             </a>
+            <nav>
+              <ul>
+                <li className={`btn btn-soft ${theme === "dark" ? "btn-info" : "btn-error"}`}>
+                  <Link to="/">Home</Link>
+                </li>
+              </ul>
+            </nav>
           </div>
+          
           <div className="flex gap-2 items-center">
             <div className="relative">
               <input

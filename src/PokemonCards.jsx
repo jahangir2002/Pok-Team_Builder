@@ -25,8 +25,9 @@ const getTypeColor = (typeName) => {
   return typeColors[typeName] || 'bg-gray-500';
 };
 
-export const PokemonCards = ({ pokemonData, theme, favoritePokemon, toggleFavorite }) => {
+export const PokemonCards = ({ pokemonData, theme, favoritePokemon, toggleFavorite, myTeamPokemon, toggleMyTeam }) => {
   const isFavorite = favoritePokemon.has(pokemonData.id);
+  const isInMyTeam = myTeamPokemon.has(pokemonData.id);
   
   const handleFavoriteClick = () => {
     toggleFavorite(pokemonData.id);
@@ -94,7 +95,12 @@ export const PokemonCards = ({ pokemonData, theme, favoritePokemon, toggleFavori
         </p>
         <p>Experience: {pokemonData.base_experience}</p>
       </div>
-      <button className={`btn btn-outline mt-4 ${theme === "dark" ? "btn-info" : "btn-error"}`}><FaPlus /> ADD</button>
+      <button 
+        className={`btn btn-outline mt-4 ${theme === "dark" ? "btn-info" : "btn-error"}`}
+        onClick={() => toggleMyTeam(pokemonData.id)}
+      >
+        {isInMyTeam ? <><FaMinus /> REMOVE FROM TEAM</> : <><FaPlus /> ADD TO TEAM</>}
+      </button>
     </li>
   );
 };

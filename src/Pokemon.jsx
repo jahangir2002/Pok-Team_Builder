@@ -4,7 +4,7 @@ import SpotlightCard from "./components/SpotlightCard";
 import MyFavorites from "./MyFavorites";
 import { useNavigate } from "react-router-dom";
 
-const Pokemon = ({ searchTerm, theme, favoritePokemon, toggleFavorite }) => {
+const Pokemon = ({ searchTerm, theme, favoritePokemon, toggleFavorite, myTeamPokemon, toggleMyTeam }) => {
   const [allPokemon, setAllPokemon] = useState([]);
   const [displayedPokemon, setDisplayedPokemon] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -214,7 +214,7 @@ const Pokemon = ({ searchTerm, theme, favoritePokemon, toggleFavorite }) => {
       <section className="max-w-screen-xl md:px-4 m-auto">
         <div className="text-end px-5 pb-2 flex justify-end gap-4">
           <button className={`btn btn-soft ${theme === "dark" ? "btn-info" : "btn-error"}`}onClick={()=> navigate("/MyFavorites")}>My Favorite Pokémon</button>
-          <button className={`btn btn-outline ${theme === "dark" ? "btn-info" : "btn-error"}`}>My Team</button>
+          <button className={`btn btn-outline ${theme === "dark" ? "btn-info" : "btn-error"}`}onClick={()=> navigate("/MyTeam")}>My Team</button>
         </div>
         {isSearching && (
           <div className="px-5 md:px-0 mb-4">
@@ -255,6 +255,8 @@ const Pokemon = ({ searchTerm, theme, favoritePokemon, toggleFavorite }) => {
                       theme={theme}
                       favoritePokemon={favoritePokemon}
                       toggleFavorite={toggleFavorite}
+                      myTeamPokemon={myTeamPokemon}
+                      toggleMyTeam={toggleMyTeam}
                     />
                   </SpotlightCard>
                 );

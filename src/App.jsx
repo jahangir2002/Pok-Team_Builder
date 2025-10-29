@@ -6,15 +6,18 @@ import Footer from "./Footer";
 import DarkBackground from "./components/DarkBackground";
 import LightBackground from "./components/LightBackground";
 import MyFavorites from "./MyFavorites";
+import MyTeam from "./MyTeam";
 import { Routes, Route } from "react-router-dom";
 
-const Home = ({ searchTerm, theme, favoritePokemon, toggleFavorite }) => {
+const Home = ({ searchTerm, theme, favoritePokemon, toggleFavorite, myTeamPokemon, toggleMyTeam }) => {
   return (
     <Pokemon
       searchTerm={searchTerm}
       theme={theme}
       favoritePokemon={favoritePokemon}
       toggleFavorite={toggleFavorite}
+      myTeamPokemon={myTeamPokemon}
+      toggleMyTeam={toggleMyTeam}
     />
   );
 };
@@ -24,6 +27,7 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [theme, setTheme] = useState("light");
   const [favoritePokemon, setFavoritePokemon] = useState(new Set());
+  const [myTeamPokemon, setMyTeamPokemon] = useState(new Set());
 
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -48,6 +52,23 @@ const App = () => {
     });
   };
 
+  const toggleMyTeam = (pokemonId) => {
+    setMyTeamPokemon(prev => {
+      const newTeam = new Set(prev);
+      if (newTeam.has(pokemonId)) {
+        newTeam.delete(pokemonId);
+      } else {
+        if (newTeam.size < 6) {
+          newTeam.add(pokemonId);
+        } else {
+          alert("Your team is full! You can only have 6 Pokémon in your team.");
+        }
+      }
+      localStorage.setItem("myTeamPokemon", JSON.stringify(Array.from(newTeam)));
+      return newTeam;
+    });
+  };
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") || "light";
     setTheme(savedTheme);
@@ -55,6 +76,11 @@ const App = () => {
     const savedFavorites = localStorage.getItem("favoritePokemon");
     if (savedFavorites) {
       setFavoritePokemon(new Set(JSON.parse(savedFavorites)));
+    }
+
+    const savedTeam = localStorage.getItem("myTeamPokemon");
+    if (savedTeam) {
+      setMyTeamPokemon(new Set(JSON.parse(savedTeam)));
     }
   }, []);
 
@@ -83,8 +109,9 @@ const App = () => {
             />
           </div>
           <Routes>
-            <Route path="/" element={<Home searchTerm={searchTerm} theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} />} />
-            <Route path="/MyFavorites" element={<MyFavorites theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} />} />
+            <Route path="/" element={<Home searchTerm={searchTerm} theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} myTeamPokemon={myTeamPokemon} toggleMyTeam={toggleMyTeam} />} />
+            <Route path="/MyFavorites" element={<MyFavorites theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} myTeamPokemon={myTeamPokemon} toggleMyTeam={toggleMyTeam} />} />
+            <Route path="/MyTeam" element={<MyTeam theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} myTeamPokemon={myTeamPokemon} toggleMyTeam={toggleMyTeam}/>} />
           </Routes>
           <Footer theme={theme}/>
         </DarkBackground>
@@ -107,8 +134,9 @@ const App = () => {
             />
           </div>
           <Routes>
-            <Route path="/" element={<Home searchTerm={searchTerm} theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} />} />
-            <Route path="/MyFavorites" element={<MyFavorites theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} />} />
+            <Route path="/" element={<Home searchTerm={searchTerm} theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} myTeamPokemon={myTeamPokemon} toggleMyTeam={toggleMyTeam} />} />
+            <Route path="/MyFavorites" element={<MyFavorites theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} myTeamPokemon={myTeamPokemon} toggleMyTeam={toggleMyTeam} />} />
+            <Route path="/MyTeam" element={<MyTeam theme={theme} favoritePokemon={favoritePokemon} toggleFavorite={toggleFavorite} myTeamPokemon={myTeamPokemon} toggleMyTeam={toggleMyTeam}/>} />
           </Routes>
           <Footer theme={theme}/>
         </LightBackground>

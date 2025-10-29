@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PokemonCards } from "./PokemonCards";
 import SpotlightCard from "./components/SpotlightCard";
 
-const MyFavorites = ({ theme, favoritePokemon, toggleFavorite }) => {
+const MyFavorites = ({ theme, favoritePokemon, toggleFavorite, myTeamPokemon, toggleMyTeam }) => {
   const [favoritePokemonData, setFavoritePokemonData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -82,6 +82,8 @@ const MyFavorites = ({ theme, favoritePokemon, toggleFavorite }) => {
                   theme={theme}
                   favoritePokemon={favoritePokemon}
                   toggleFavorite={toggleFavorite}
+                  myTeamPokemon={myTeamPokemon}
+                  toggleMyTeam={toggleMyTeam}
                 />
               </SpotlightCard>
             ))}

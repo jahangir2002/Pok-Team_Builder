@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { PokemonCards } from "./PokemonCards";
 import SpotlightCard from "./components/SpotlightCard";
+import { useNavigate } from 'react-router-dom';
 
 const MyTeam = ({ theme, favoritePokemon, toggleFavorite, myTeamPokemon, toggleMyTeam }) => {
   const [teamPokemonDetails, setTeamPokemonDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const fetchPokemonDetails = async (pokemonIds) => {
     setLoading(true);
@@ -59,7 +61,15 @@ const MyTeam = ({ theme, favoritePokemon, toggleFavorite, myTeamPokemon, toggleM
 
   return (
     <section className="max-w-screen-xl md:px-4 m-auto pb-5">
-      <h1 className={`text-3xl font-bold text-start mb-6 ${theme === "dark" ? "text-white" : "text-black"}`}>My Pokémon Team ({myTeamPokemon.size}/6)</h1>
+        <div className='flex justify-between'>
+<h1 className={`text-3xl font-bold text-start mb-6 ${theme === "dark" ? "text-white" : "text-black"}`}>My Pokémon Team ({myTeamPokemon.size}/6)</h1>
+
+      <div className='flex justify-end gap-4'>
+      <button className={`btn btn-outline ${theme === "dark" ? "btn-info" : "btn-error"}`} onClick={() => navigate("/")}>View All Pokémon</button>
+      <button className={`btn btn-outline ${theme === "dark" ? "btn-info" : "btn-error"}`}onClick={()=> navigate("/MyFavorites")}>My Favorite Pokémon</button>
+      </div>
+        </div>
+      
       {teamPokemonDetails.length === 0 ? (
         <div className="flex justify-center items-center min-h-[400px]">
           <div className="text-center">

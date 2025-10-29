@@ -1,3 +1,5 @@
+import { FaPlus, FaMinus } from "react-icons/fa";
+
 // Pokemon type color mapping
 const getTypeColor = (typeName) => {
   const typeColors = {
@@ -92,6 +94,7 @@ export const PokemonCards = ({ pokemonData, theme, favoritePokemon, toggleFavori
         </p>
         <p>Experience: {pokemonData.base_experience}</p>
       </div>
+      <button className={`btn btn-outline mt-4 ${theme === "dark" ? "btn-info" : "btn-error"}`}><FaPlus /> ADD</button>
     </li>
   );
 };

@@ -59,7 +59,7 @@ const MyTeam = ({ theme, favoritePokemon, toggleFavorite, myTeamPokemon, toggleM
 
   return (
     <section className="max-w-screen-xl md:px-4 m-auto pb-5">
-      <h1 className={`text-3xl font-bold text-center mb-6 ${theme === "dark" ? "text-white" : "text-black"}`}>My Pokémon Team ({myTeamPokemon.size}/6)</h1>
+      <h1 className={`text-3xl font-bold text-start mb-6 ${theme === "dark" ? "text-white" : "text-black"}`}>My Pokémon Team ({myTeamPokemon.size}/6)</h1>
       {teamPokemonDetails.length === 0 ? (
         <div className="flex justify-center items-center min-h-[400px]">
           <div className="text-center">

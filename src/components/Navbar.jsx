@@ -24,9 +24,12 @@ const Navbar = ({ onSearch, theme, toggleTheme }) => {
               PokéTeam Builder
             </a>
             <nav>
-              <ul>
+              <ul className="flex gap-5">
                 <li className={` link no-underline text-md font-semibold ${theme === "dark" ? "link-info" : "link-error"}`}>
                   <Link to="/">Home</Link>
+                </li>
+                <li className={` link no-underline text-md font-semibold ${theme === "dark" ? "link-info" : "link-error"}`}>
+                  <Link to="/About">About</Link>
                 </li>
               </ul>
             </nav>

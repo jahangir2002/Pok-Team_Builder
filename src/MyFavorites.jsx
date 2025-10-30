@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PokemonCards } from "./PokemonCards";
 import SpotlightCard from "./components/SpotlightCard";
 import { useNavigate } from "react-router-dom";
+import RotatingTitle from "./components/RotatingTitle";
 
 const MyFavorites = ({ theme, favoritePokemon, toggleFavorite, myTeamPokemon, toggleMyTeam }) => {
   const [favoritePokemonData, setFavoritePokemonData] = useState([]);
@@ -61,6 +62,7 @@ const MyFavorites = ({ theme, favoritePokemon, toggleFavorite, myTeamPokemon, to
   return (
     <>
       <section className="max-w-screen-xl md:px-4 m-auto mb-10">
+        <RotatingTitle theme={theme}/>
         <div className="flex justify-between">
           <h1
           className={`text-3xl font-bold px-5 md:px-0 mb-6 ${theme === "dark" ? "text-white" : "text-black"}`}

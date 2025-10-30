@@ -29,7 +29,7 @@ const Navbar = ({ onSearch, theme, toggleTheme }) => {
                   <Link to="/">Home</Link>
                 </li>
                 <li className={` link no-underline text-md font-semibold ${theme === "dark" ? "link-info" : "link-error"}`}>
-                  <Link to="/About">About</Link>
+                  <Link to="/About">About Us</Link>
                 </li>
               </ul>
             </nav>

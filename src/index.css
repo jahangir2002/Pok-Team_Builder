@@ -7,6 +7,11 @@
   color: white;
 }
 
+html,body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 .input {
   background-color: rgba(255, 255, 255, 0.3);
   /* width: 35vh; */

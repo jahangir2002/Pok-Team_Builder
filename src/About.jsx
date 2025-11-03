@@ -24,7 +24,20 @@ const About = () => {
         <div className="md:px-5">
           <h2 className="text-4xl font-extrabold mb-3">About Me 👋</h2>
           <p className="text-xl leading-relaxed">  
-          Hi there, I'm Jahangir, a front-end developer with a passion for creating interactive applications.  I gained experience with state management, component design, and API integration through this project.  I mainly use React, Tailwind CSS, and Vite, but I also enjoy experimenting with animation libraries like Framer Motion and Lenis to make interfaces come to life.  I like creating simple, responsive layouts that feel easy to use and enjoyable, incorporating playful user interface elements like dynamic icons and glassmorphism.  Managing state across components and creating a theme-aware interface that feels like it belongs in the Pokémon universe were just two examples of how this project allowed me to push myself.  Seeking more?  View my [GitHub] or follow me on [LinkedIn].
+          Hi there, I'm Jahangir, a front-end developer with a passion for creating interactive applications.  I gained experience with state management, component design, and API integration through this project.  I mainly use <div  className="tooltip cursor-pointer"><div className="tooltip-content">
+          <div className="card bg-base-100 w-96 shadow-sm"> 
+            <figure>
+    <img
+      src="src/assets/Screenshot 2025-11-03 110425.jpg"
+      alt="Shoes" />
+  </figure>
+  <div className="card-body">
+    <h2 className="card-title">React Js</h2>
+    <p>ReactJS is a JavaScript library for building user interfaces, particularly for web and native applications.</p>
+  </div>
+ 
+</div>
+  </div> <button className="btn"><a href="https://react.dev/" target="_blank" rel="noopener noreferrer">React</a></button></div> , Tailwind CSS, and Vite, but I also enjoy experimenting with animation libraries like Framer Motion to make interfaces come to life.  I like creating simple, responsive layouts that feel easy to use and enjoyable, incorporating playful user interface elements like dynamic icons and glassmorphism.  Managing state across components and creating a theme-aware interface that feels like it belongs in the Pokémon universe were just two examples of how this project allowed me to push myself.  Seeking more?  View my [GitHub] or follow me on [LinkedIn].
           </p>
         </div>
       </section>

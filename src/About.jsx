@@ -70,6 +70,13 @@ const About = () => {
           />.
           </p>
         </div>
+
+        {/* ⚡ Future Goals & Next Steps */}
+
+        <div className="md:px-5 pb-10">
+<h2 className="text-4xl font-extrabold mb-3">Future Goals & Next Steps ⚡</h2>
+<p className="text-xl leading-relaxed">I’m planning to evolve PokéTeam Builder from a simple Pokémon browser into a full-fledged MERN-based web app with real-time interaction and a connected user experience.</p>
+        </div>
       </section>
     </>
   );

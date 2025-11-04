@@ -24,7 +24,7 @@ const About = () => {
         </div>
         <div className="md:px-5 pb-10">
           <h2 className="text-4xl font-extrabold mb-3">About Me 👋</h2>
-          <p className="text-xl leading-relaxed">  
+          <div className="text-xl leading-relaxed">  
           Hi there, I'm Jahangir, a front-end developer with a passion for creating interactive applications.  I gained experience with state management, component design, and API integration through this project.  I mainly use <TooltipItem 
             imgSrc="src/assets/Reactjs.jpg"
             imgAlt="React Js"
@@ -68,7 +68,7 @@ const About = () => {
             buttonText="LinkedIn"
             buttonHref="https://www.linkedin.com/in/shaikh-jahangir-alam-74b758222/"
           />.
-          </p>
+          </div>
         </div>
 
         {/* ⚡ Future Goals & Next Steps */}

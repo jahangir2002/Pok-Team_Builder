@@ -1,6 +1,6 @@
 import React from "react";
 
-const TooltipItem = ({ imgSrc, imgAlt, title, description, buttonText, buttonHref,theme }) => {
+const TooltipItem = ({ imgSrc, imgAlt, title, description, buttonText, buttonHref }) => {
   return (
     <div className={`tooltip cursor-pointer`}>
       <div className="tooltip-content p-0">

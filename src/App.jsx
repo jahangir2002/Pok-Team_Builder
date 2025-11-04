@@ -9,7 +9,6 @@ import MyFavorites from "./MyFavorites";
 import MyTeam from "./MyTeam";
 import { Routes, Route, useLocation } from "react-router-dom";
 import About from "./About";
-import TooltipItem from "./TooltipItem";
 
 const Home = ({
   searchTerm,
@@ -165,7 +164,6 @@ const App = () => {
               }
             />
           </Routes>
-          <TooltipItem theme={theme} />
           <Footer theme={theme} />
         </DarkBackground>
       ) : (
@@ -228,7 +226,6 @@ const App = () => {
               }
             />
           </Routes>
-          <TooltipItem theme={theme} />
           <Footer theme={theme} />
         </LightBackground>
       )}

@@ -11,8 +11,7 @@ export const GlowingCard = ({
   return (
     <div
       className={cn(
-        "relative flex-1 min-w-[14rem] p-6 rounded-2xl text-black dark:text-white",
-        "bg-background border",
+        "relative flex-1 min-w-[14rem] p-6 rounded-2xl border",
         "transition-all duration-400 ease-out",
         className
       )}
@@ -35,8 +34,8 @@ const GlowingCards = ({
   animationDuration = 400,
   enableHover = true,
   gap = "2.5rem",
-  maxWidth = "75rem",
-  padding = "3rem 1.5rem",
+  // maxWidth = "75rem",
+  padding = "0",
   backgroundColor,
   borderRadius = "1rem",
   responsive = true,
@@ -79,7 +78,7 @@ const GlowingCards = ({
 
   const containerStyle = {
     '--gap': gap,
-    '--max-width': maxWidth,
+    // '--max-width': maxWidth,
     '--padding': padding,
     '--border-radius': borderRadius,
     '--animation-duration': `${animationDuration}ms`,
@@ -131,14 +130,12 @@ const GlowingCards = ({
                   return React.cloneElement(child, {
                     className: cn(
                       child.props.className,
-                      "bg-opacity-15 dark:bg-opacity-15",
-                      "border-opacity-100 dark:border-opacity-100"
+                      "bg-gray-100 dark:bg-gray-800", // Theme-aware background
+                      "border-gray-300 dark:border-gray-700" // Theme-aware border
                     ),
                     style: {
                       ...child.props.style,
-                      backgroundColor: `${cardGlowColor}15`,
-                      borderColor: cardGlowColor,
-                      boxShadow: `0 0 0 1px inset ${cardGlowColor}`,
+                      boxShadow: `0 0 0 1px inset ${cardGlowColor}, 0 0 15px -3px ${cardGlowColor}`,
                     },
                   });
                 }

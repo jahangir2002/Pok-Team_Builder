@@ -2,7 +2,7 @@ import React from "react";
 import TooltipItem from "./TooltipItem";
 import FutureGoals from "./components/FutureGoals";
 
-const About = () => {
+const About = ({ theme }) => {
   return (
     <>
       <section className="max-w-screen-xl px-5 md:px-0 m-auto py-5">
@@ -111,19 +111,7 @@ const About = () => {
           </p>
 
           <div className="cards flex justify-center my-10">
-          {/* <div className="card bg-primary text-primary-content w-[110vh]">
-  <div className="card-body">
-    <h2 className="card-title font-bold text-2xl">Authentication System</h2>
-    <ul className="list-disc list-inside space-y-2 text-base leading-relaxed">
-      <li>Enable secure <strong>Login & Signup</strong> functionality for users.</li>
-      <li>Use <strong>JWT (JSON Web Tokens)</strong> for authentication and session management.</li>
-      <li>Store user credentials and profile data in <strong>MongoDB</strong> instead of localStorage.</li>
-      <li>Provide a <strong>personalized experience</strong> — each user can save their own favorite Pokémon and custom teams.</li>
-    </ul>
-  </div>
-</div> */}
-
-<FutureGoals />
+          <FutureGoals theme={theme} />
           </div>
         </div>
       </section>

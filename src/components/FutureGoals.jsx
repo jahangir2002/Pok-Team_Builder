@@ -50,7 +50,7 @@ const goals = [
   },
 ];
 
-export default function FutureGoals() {
+export default function FutureGoals({ theme }) {
   return (
     <GlowingCards
       enableGlow
@@ -59,6 +59,7 @@ export default function FutureGoals() {
       animationDuration={500}
       gap="2rem"
       responsive
+      className={`${theme === "dark" ? "text-white" : "text-black"}`}
     >
       {goals.map((goal, i) => (
         <GlowingCard key={i} glowColor={goal.glowColor} className="space-y-4">

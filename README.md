@@ -41,8 +41,8 @@ Follow these steps to get the project up and running on your local machine.
 1.  Clone the repository:
 
     ```bash
-    git clone <repository_url>
-    cd <repository_directory>
+    git clone https://github.com/jahangir2002/Pok-Team_Builder.git
+    cd Pok-Team_Builder
     ```
 
 2.  Install dependencies:
@@ -141,7 +141,13 @@ PokéTeam Builder is designed with scalability and long-term vision in mind. Her
 
 ## 📸 Screenshots
 
+### Dark Mode
 ![Image](https://github.com/user-attachments/assets/2b5af151-24a8-4ef5-ad2d-9de9910fa9ed)
+
+### Light Mode
+![Image](https://github.com/user-attachments/assets/a703454a-937c-4df5-b169-bedce38bf250)
+
+
 
 ## 🤝 Contributing
 

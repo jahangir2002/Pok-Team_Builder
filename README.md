@@ -141,7 +141,7 @@ PokéTeam Builder is designed with scalability and long-term vision in mind. Her
 
 ## 📸 Screenshots
 
-(Screenshots will be added here)
+![Image](https://github.com/user-attachments/assets/2b5af151-24a8-4ef5-ad2d-9de9910fa9ed)
 
 ## 🤝 Contributing
 

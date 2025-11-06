@@ -1,41 +1,31 @@
-# Pok Team Builder 🚀
+# PokéTeam Builder 🚀
 
-A fantastic web application for building your dream Pokémon team! This project allows users to search for Pokémon, manage their favorite Pokémon, and switch between light and dark themes for optimal viewing. It leverages React, Vite, and Tailwind CSS to provide a smooth and responsive user experience.
+A dynamic React application that allows users to build their ultimate Pokémon team! Browse through a comprehensive list of Pokémon, add them to your favorites, and assemble your dream team. With features like theme switching, search functionality, and persistent data storage, PokéTeam Builder offers a seamless and engaging experience for Pokémon enthusiasts.
 
-## 🚀 Key Features
+## 🌟 Key Features
 
-- **Pokémon Search:** 🔍 Quickly find your favorite Pokémon by name.
-- **Theme Switching:** 🌙 Toggle between light and dark themes for comfortable viewing in any environment.
-- **Favorite Pokémon Management:** ❤️ Keep track of your dream team by adding and removing Pokémon from your favorites.
-- **Responsive Design:** 📱💻 Enjoy a seamless experience on any device.
-- **Spotlight Card:** ✨ Get a detailed view of a selected Pokemon with an interactive spotlight effect.
-- **Rotating Text:** 🔄 Dynamic text effects to enhance the UI.
-- **Pagination:** 📄 Load Pokemon in batches for better performance.
+- **Extensive Pokémon Database:** Browse through a vast collection of Pokémon fetched directly from the PokéAPI.
+- **Team Builder:** Create and manage your Pokémon team, limited to a maximum of 6 Pokémon.
+- **Favorites List:** Keep track of your favorite Pokémon for easy access.
+- **Search Functionality:** Quickly find specific Pokémon by name, type, or ability.
+- **Theme Switching:** Toggle between light and dark themes for a personalized experience.
+- **Persistent Data:** Your theme preferences, favorite Pokémon, and team are saved using `localStorage`.
+- **Responsive Design:** Enjoy a seamless experience on various devices.
+- **About Us Page:** Learn more about the application and the developer.
 
 ## 🛠️ Tech Stack
 
-- **Frontend:**
-    - React
-    - React DOM
-- **Styling:**
-    - Tailwind CSS
-    - DaisyUI
-- **Build Tool:**
-    - Vite
-    - `@vitejs/plugin-react`
-    - `@tailwindcss/vite`
-- **Animation:**
-    - Motion
-- **Icons:**
-    - React Icons
-- **Linting:**
-    - ESLint
-    - `@eslint/js`
-    - `eslint-plugin-react-hooks`
-    - `eslint-plugin-react-refresh`
-- **Other:**
-    - Globals
-    - Typescript (dev dependencies)
+| Category      | Technology                | Description                                                                 |
+|---------------|---------------------------|-----------------------------------------------------------------------------|
+| **Frontend**  | React                     | JavaScript library for building user interfaces.                            |
+|               | React Router DOM          | Library for handling routing and navigation within the application.          |
+|               | Tailwind CSS              | CSS framework for styling the application.                                  |
+|               | DaisyUI                   | Component library built on top of Tailwind CSS.                             |
+|               | React Icons               | Library for using icons in React components.                                |
+|               | Motion                    | Animation library for creating smooth transitions.                           |
+| **Build Tool**| Vite                      | Build tool for fast development and optimized production builds.            |
+| **Other**     | PokéAPI                   | RESTful API providing Pokémon data.                                         |
+| **Linting**   | ESLint                    | JavaScript linter for code quality.                                         |
 
 ## 📦 Getting Started
 
@@ -43,22 +33,22 @@ Follow these steps to get the project up and running on your local machine.
 
 ### Prerequisites
 
-- Node.js (>=18)
-- npm or yarn or pnpm
+- Node.js (version >= 18)
+- npm (or yarn or pnpm)
 
 ### Installation
 
 1.  Clone the repository:
 
     ```bash
-    git clone <repository-url>
-    cd pok-team-builder
+    git clone <repository_url>
+    cd <repository_directory>
     ```
 
 2.  Install dependencies:
 
     ```bash
-    npm install # or yarn install or pnpm install
+    npm install
     ```
 
 ### Running Locally
@@ -66,50 +56,92 @@ Follow these steps to get the project up and running on your local machine.
 1.  Start the development server:
 
     ```bash
-    npm run dev # or yarn dev or pnpm dev
+    npm run dev
     ```
 
-    This will start the Vite development server, and you can access the application in your browser at `http://localhost:5173` (or the port Vite assigns).
+2.  Open your browser and navigate to `http://localhost:5173` (or the port specified by Vite).
 
 ## 💻 Usage
 
-1.  **Search for Pokémon:** Use the search bar in the navigation bar to find specific Pokémon.
-2.  **Toggle Theme:** Use the theme toggle button in the navigation bar to switch between light and dark themes.
-3.  **Manage Favorites:** Click the heart icon on a Pokémon card to add or remove it from your favorites.
-4.  **Explore Pokemon:** Scroll through the list of Pokemon, which are loaded in batches using pagination.
-5.  **Spotlight Card:** Hover over a card to see the spotlight effect.
+1.  **Browse Pokémon:** Use the main page to view a list of Pokémon.
+2.  **Search:** Use the search bar in the Navbar to find specific Pokémon.
+3.  **Add to Favorites:** Click the heart icon on a Pokémon card to add it to your favorites.
+4.  **Build Your Team:** Click the plus icon on a Pokémon card to add it to your team (maximum 6).
+5.  **View Favorites:** Navigate to the "My Favorites" page to see your favorite Pokémon.
+6.  **View Team:** Navigate to the "My Team" page to see your current team.
+7.  **Switch Theme:** Use the theme toggle in the Navbar to switch between light and dark themes.
 
 ## 📂 Project Structure
 
 ```
-pok-team-builder/
-├── .eslintrc.cjs
-├── .gitignore
-├── index.html
-├── package.json
-├── postcss.config.js
+poketeam-builder/
 ├── src/
-│   ├── App.jsx
-│   ├── Pokemon.jsx
-│   ├── PokemonCards.jsx
-│   ├── assets/
-│   │   └── react.svg
 │   ├── components/
+│   │   ├── FutureGoals.jsx
 │   │   ├── DarkBackground.jsx
 │   │   ├── LightBackground.jsx
 │   │   ├── Navbar.jsx
-│   │   ├── RotatingText.jsx
-│   │   └── SpotlightCard.jsx
-│   ├── index.css
+│   │   ├── RotatingTitle.jsx
+│   │   ├── SpotlightCard.jsx
+│   ├── lib/
+│   │   ├── utils.js
+│   ├── About.jsx
+│   ├── App.jsx
+│   ├── Footer.jsx
+│   ├── MyFavorites.jsx
+│   ├── MyTeam.jsx
+│   ├── Pokemon.jsx
+│   ├── PokemonCards.jsx
 │   ├── main.jsx
-│   └── vite-env.d.ts
-├── tailwind.config.js
-└── vite.config.js
+│   ├── index.css
+├── vite.config.js
+├── package.json
+├── README.md
 ```
+
+## 🔮 Future Scope
+
+PokéTeam Builder is designed with scalability and long-term vision in mind. Here are some exciting features planned for future development:
+
+### 🔐 1. Authentication System
+
+- Implement user Login & Signup functionality.
+- Use JWT (JSON Web Tokens) for secure authentication.
+- Store user data in MongoDB instead of localStorage.
+- Enable personalized experiences — each user can manage their own favorites and teams.
+
+### 🗄️ 2. Database Integration
+
+- Migrate from localStorage to a persistent backend using MongoDB + Mongoose.
+- Define collections for:
+  - `users` (profile, email, password)
+  - `pokemons` (data fetched from PokéAPI)
+  - `teams` (custom team creation per user)
+  - `favorites` (liked Pokémon list)
+
+### ⚔️ 3. Real-Time Pokémon Battle System
+
+- Introduce a live battle mode where two users can compete in real-time.
+- Use Socket.IO (WebSocket) for real-time communication.
+- Design a battle arena UI showing both players’ Pokémon, HP, and status.
+- Implement battle logic based on stats like HP, Speed, Weight, and Type Advantages.
+
+### 🌐 4. Global Community Features
+
+- Add a chat or friend system for trainers to connect.
+- Display a global leaderboard based on battle wins.
+- Show recent battles or activity feed for community engagement.
+
+### 🎨 5. Enhanced UI & UX
+
+- Build a fully responsive, Pokémon-themed interface.
+- Add immersive animations using GSAP or Framer Motion.
+- Introduce PokéCenter/Gym-inspired dark/light themes.
+- Optimize for mobile-first experience with smooth touch interactions.
 
 ## 📸 Screenshots
 
-(Add screenshots of your application here to showcase its features and UI)
+(Screenshots will be added here)
 
 ## 🤝 Contributing
 
@@ -125,12 +157,6 @@ Contributions are welcome! Please follow these steps:
 
 This project is licensed under the [MIT License](LICENSE).
 
-## 📬 Contact
+## 💖 Thanks
 
-If you have any questions or suggestions, feel free to reach out:
-
-- [Your Name/Organization] - [Your Email/Website]
-
-## 💖 Thanks Message
-
-Thank you for checking out the Pok Team Builder! We hope you find it useful and enjoyable. Your feedback and contributions are highly appreciated!
+Thank you for checking out PokéTeam Builder! We hope you enjoy building your ultimate Pokémon team.

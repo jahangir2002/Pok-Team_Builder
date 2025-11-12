@@ -10,7 +10,7 @@ const About = ({ theme }) => {
         <div className="flex flex-col md:flex-row items-center md:px-5 gap-8 py-10">
           <figure className="md:order-2 flex-shrink-0">
             <img
-              src="src/assets/pikachu.svg"
+              src="/assets/pikachu.svg"
               alt="Pikachu mascot"
               className="w-64 md:w-96 h-auto drop-shadow-xl"
               loading="lazy"
@@ -36,7 +36,7 @@ const About = ({ theme }) => {
             management, component design, and API integration through this
             project. I mainly use{" "}
             <TooltipItem
-              imgSrc="src/assets/Reactjs.jpg"
+              imgSrc="/assets/Reactjs.jpg"
               imgAlt="React Js"
               title="React Js"
               description="ReactJS is a JavaScript library for building user interfaces, particularly for web and native applications."
@@ -45,7 +45,7 @@ const About = ({ theme }) => {
             />{" "}
             ,{" "}
             <TooltipItem
-              imgSrc="src/assets/Tailwind-CSS.jpg"
+              imgSrc="/assets/Tailwind-CSS.jpg"
               imgAlt="Tailwind CSS"
               title="Tailwind CSS"
               description="Tailwind CSS is a utility-first CSS framework for rapidly building custom user interfaces."
@@ -54,7 +54,7 @@ const About = ({ theme }) => {
             />
             , and{" "}
             <TooltipItem
-              imgSrc="src/assets/Vite.jpg"
+              imgSrc="/assets/Vite.jpg"
               imgAlt="Vite"
               title="Vite"
               description="Vite is a next-generation frontend tooling that provides an extremely fast development experience."
@@ -63,7 +63,7 @@ const About = ({ theme }) => {
             />
             , but I also enjoy experimenting with animation libraries like{" "}
             <TooltipItem
-              imgSrc="src/assets/Framer-Motion.jpg"
+              imgSrc="/assets/Framer-Motion.jpg"
               imgAlt="Framer Motion"
               title="Framer Motion"
               description="Framer Motion is a production-ready motion library for React that makes animations simple."
@@ -78,7 +78,7 @@ const About = ({ theme }) => {
             just two examples of how this project allowed me to push myself.
             Seeking more? View my{" "}
             <TooltipItem
-              imgSrc="src/assets/jahangir2002.jpg"
+              imgSrc="/assets/jahangir2002.jpg"
               imgAlt="GitHub"
               title="GitHub"
               description="GitHub is a platform for software development and version control using Git. It hosts source code, issues, and project management features."
@@ -87,7 +87,7 @@ const About = ({ theme }) => {
             />{" "}
             or follow me on{" "}
             <TooltipItem
-              imgSrc="src/assets/LinkedIn.jpg"
+              imgSrc="/assets/LinkedIn.jpg"
               imgAlt="LinkedIn"
               title="LinkedIn"
               description="LinkedIn is a business and employment-focused social media platform that works through websites and mobile apps."

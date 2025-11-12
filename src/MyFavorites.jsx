@@ -4,7 +4,13 @@ import SpotlightCard from "./components/SpotlightCard";
 import { useNavigate } from "react-router-dom";
 import RotatingTitle from "./components/RotatingTitle";
 
-const MyFavorites = ({ theme, favoritePokemon, toggleFavorite, myTeamPokemon, toggleMyTeam }) => {
+const MyFavorites = ({
+  theme,
+  favoritePokemon,
+  toggleFavorite,
+  myTeamPokemon,
+  toggleMyTeam,
+}) => {
   const [favoritePokemonData, setFavoritePokemonData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,8 +48,18 @@ const MyFavorites = ({ theme, favoritePokemon, toggleFavorite, myTeamPokemon, to
     return (
       <div className="flex justify-center items-center min-h-[400px]">
         <div className="text-center">
-          <div className={`loading loading-spinner loading-lg ${theme === "dark" ? "text-cyan-500" : "text-red-600"}`}></div>
-          <h1 className={`text-xl font-semibold mt-4 ${theme === "dark" ? "text-white" : "text-black"}`}>Loading your favorite Pokémon...</h1>
+          <div
+            className={`loading loading-spinner loading-lg ${
+              theme === "dark" ? "text-cyan-500" : "text-red-600"
+            }`}
+          ></div>
+          <h1
+            className={`text-xl font-semibold mt-4 ${
+              theme === "dark" ? "text-white" : "text-black"
+            }`}
+          >
+            Loading your favorite Pokémon...
+          </h1>
         </div>
       </div>
     );
@@ -53,7 +69,13 @@ const MyFavorites = ({ theme, favoritePokemon, toggleFavorite, myTeamPokemon, to
     return (
       <div className="flex justify-center items-center min-h-[400px]">
         <div className="text-center">
-          <h1 className={`text-xl font-semibold ${theme === "dark" ? "text-red-400" : "text-red-600"}`}>Error: {error.message}</h1>
+          <h1
+            className={`text-xl font-semibold ${
+              theme === "dark" ? "text-red-400" : "text-red-600"
+            }`}
+          >
+            Error: {error.message}
+          </h1>
         </div>
       </div>
     );
@@ -62,22 +84,44 @@ const MyFavorites = ({ theme, favoritePokemon, toggleFavorite, myTeamPokemon, to
   return (
     <>
       <section className="max-w-screen-xl md:px-4 m-auto mb-10">
-        <RotatingTitle theme={theme}/>
-        <div className="flex justify-between">
+        <RotatingTitle theme={theme} />
+        <div className="flex flex-col md:flex-row justify-between">
           <h1
-          className={`text-3xl font-bold px-5 md:px-0 mb-6 ${theme === "dark" ? "text-white" : "text-black"}`}
-        >
-          My Favorite Pokémon
-        </h1>
-        <div className="flex justify-end gap-4">
-          <button className={`btn btn-outline ${theme === "dark" ? "btn-info" : "btn-error"}`} onClick={() => navigate("/")}>View All Pokémon</button>
-          <button className={`btn btn-outline ${theme === "dark" ? "btn-info" : "btn-error"}`} onClick={() => navigate("/MyTeam")}>My Team</button>
+            className={`text-3xl font-bold px-5 md:px-0 mb-6 ${
+              theme === "dark" ? "text-white" : "text-black"
+            }`}
+          >
+            My Favorite Pokémon
+          </h1>
+          <div className="flex justify-start md:justify-end  gap-4 px-5 md:px-0 mb-6">
+            <button
+              className={`btn btn-outline ${
+                theme === "dark" ? "btn-info" : "btn-error"
+              }`}
+              onClick={() => navigate("/")}
+            >
+              View All Pokémon
+            </button>
+            <button
+              className={`btn btn-outline ${
+                theme === "dark" ? "btn-info" : "btn-error"
+              }`}
+              onClick={() => navigate("/MyTeam")}
+            >
+              My Team
+            </button>
+          </div>
         </div>
-        </div>
-        
+
         {favoritePokemonData.length === 0 ? (
           <div className="flex justify-center items-center min-h-[200px]">
-            <p className={`text-lg ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>No favorite Pokémon added yet.</p>
+            <p
+              className={`text-lg ${
+                theme === "dark" ? "text-gray-400" : "text-gray-600"
+              }`}
+            >
+              No favorite Pokémon added yet.
+            </p>
           </div>
         ) : (
           <ul className="cards px-5 md:px-0 grid md:grid-cols-3 gap-5">
@@ -85,7 +129,11 @@ const MyFavorites = ({ theme, favoritePokemon, toggleFavorite, myTeamPokemon, to
               <SpotlightCard
                 key={pokemon.id}
                 className="custom-spotlight-card transition-transform duration-300 hover:scale-105 cursor-pointer"
-                spotlightColor={theme === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)"}
+                spotlightColor={
+                  theme === "dark"
+                    ? "rgba(255, 255, 255, 0.2)"
+                    : "rgba(0, 0, 0, 0.2)"
+                }
                 theme={theme}
               >
                 <PokemonCards
